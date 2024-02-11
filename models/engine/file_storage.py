@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+import os.path
+import json
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -6,8 +8,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models.place import Place
-import os.path
-import json
 
 
 class FileStorage:
@@ -42,17 +42,22 @@ class FileStorage:
                 data = json.load(file)
                 for key, value in data.items():
                     class_name, obj_id = key.split(',')
-                    module_name = 'models.' + class_name
-                    module = __import__(module_name, fromlist=[class_name])
-                    class_ = getattr(module, class_name)
+                    class_ = eval(class_name)
                     self.__objects[key] = class_(**value)
 
     def _deserialize_object(self, obj_dict):
         """Deserialize a JSON dictionary to an object instance"""
         class_name = obj_dict.get('__class__')
-        if class_name == 'User':
-            return User(**obj_dict)
-        elif class_name == 'BaseModel':
-            return BaseModel(**obj_dict)
+        class_mapping = {
+                'User': User,
+                'BaseModel': BaseModel,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review
+        }
+        if class_name:
+            return class_mapping.get(class_name, None)(**obj_dict)
         else:
             return None

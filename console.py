@@ -4,8 +4,6 @@ This module contains the entry point of the command interpreter.
 """
 
 import cmd
-import models
-from shlex import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -19,7 +17,7 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class inherits from cmd.CMD"""
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User"]
+    classes = ["BaseModel", "User", "State", "City", "Place", "Amenity", "Review"]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -30,14 +28,14 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """Empty line oes nothing"""
+        """Empty line does nothing"""
         pass
 
     def do_create(self, arg):
         """
         Creates new instance of BaseModel, saves it and prints id
         """
-        args = shlex.split(arg)
+        args = arg.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -46,11 +44,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         try:
-            new_instance = eval(class_name_)()
+            new_instance = eval(class_name)()
             new_instance.save()
             print(new_instance.id)
         except Exception as e:
-            print("**  class doesn't exist **")
+            print("**  error creating instance **")
 
     def do_show(self, arg):
         """
@@ -77,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """
-        Destroy command to delete an instance
+        Destroy an instance based on class name and ID
         """
         args = arg.split()
         if len(args) == 0:
@@ -91,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
         instance_id = args[1]
-        key = class_name + '_' + instance_id
+        key = class_name + '.' + instance_id
         if key not in storage.all():
             print("** no instance found **")
             return
@@ -110,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
                     if v.__class__.__name__ == arg
                 }
             except AttributeError:
-                print("**class doesn't exiat **")
+                print("**class doesn't exist **")
                 return
             print([str(v) for v in objects.values()])
 
@@ -138,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 4:
             print("** value missing **")
             return
-        attribbute_name = args[2]
+        attribute_name = args[2]
         attribute_value = args[3]
         obj = storage.all()[key]
         setattr(obj, attribute_name, attribute_value)
