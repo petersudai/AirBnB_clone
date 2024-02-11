@@ -17,7 +17,15 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class inherits from cmd.CMD"""
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User", "State", "City", "Place", "Amenity", "Review"]
+    classes = [
+            "BaseModel",
+            "User",
+            "State",
+            "City",
+            "Place",
+            "Amenity",
+            "Review"
+    ]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
