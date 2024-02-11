@@ -95,7 +95,10 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         if arg:
             try:
-                objects = {k: v for k, v in objects.items() if v.__class__.__name__ == arg}
+                objects = {
+                    k: v for k, v in objects.items()
+                    if v.__class__.__name__ == arg
+                }
             except AttributeError:
                 print("**class doesn't exiat **")
                 return
