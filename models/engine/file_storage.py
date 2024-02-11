@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 import json
 from os import path
-
+from models.user import User
+from models.base_model import BaseModel
 
 class FileStorage:
     """
@@ -39,3 +40,13 @@ class FileStorage:
                     module = __import__(module_name, fromlist=[class_name])
                     class_ = getattr(module, class_name)
                     self.__objects[key] = class_(**value)
+
+    def _deserialize_object(self, obj_dict):
+        """Deserialize a JSON dictionary to an object instance"""
+        class_name = obj_dict.get('__class__')
+        if class_name == 'User':
+            return User(**obj_dict)
+        elif class_name == 'BaseModel':
+            return BaseModel(**obj_dict)
+        else:
+            return None
