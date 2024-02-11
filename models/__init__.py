@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""method for models directory"""
+"""__init__ majic method for models directory"""
 from models.engine.file_storage import FileStorage
 
 

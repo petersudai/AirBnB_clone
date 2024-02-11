@@ -1,8 +1,13 @@
 #!/usr/bin/python3
+from models.base_model import BaseModel
 import json
 from os import path
 from models.user import User
-from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
 
 class FileStorage:
     """
@@ -10,7 +15,7 @@ class FileStorage:
     JSON file to instances
     """
 
-    __file_Path = "file.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -36,7 +41,7 @@ class FileStorage:
                 data = json.load(file)
                 for key, value in data.items():
                     class_name, obj_id = key.split(',')
-                    module_name = 'models.' + call_name
+                    module_name = 'models.' + class_name
                     module = __import__(module_name, fromlist=[class_name])
                     class_ = getattr(module, class_name)
                     self.__objects[key] = class_(**value)
