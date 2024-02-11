@@ -4,7 +4,6 @@ This module contains the entry point of the command interpreter.
 """
 
 import cmd
-import models
 
 
 class HBNBCommand(cmd.Cmd):
