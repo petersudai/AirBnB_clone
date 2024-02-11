@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 """Defines BaseModel class"""
-import sys
-print(sys.path)
-import models
 from uuid import uuid4
 from datetime import datetime
+from . import storage
 
 
 class BaseModel:

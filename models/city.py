@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
-module creates a User class
-defines a city class
+module defines a city class
 """
 from base_model import BaseModel
 
