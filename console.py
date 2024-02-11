@@ -4,6 +4,7 @@ This module contains the entry point of the command interpreter.
 """
 
 import cmd
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
