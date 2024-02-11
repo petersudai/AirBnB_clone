@@ -3,7 +3,7 @@
 module creates a User class
 defines a city class
 """
-from models.base_model import BaseModel
+from base_model import BaseModel
 
 
 class City(BaseModel):

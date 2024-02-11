@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Defines Amenity class"""
 
-from models.nase_model import BaseModel
+from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-
 """Defines the Place user class"""
+from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """Place class that inherits from BaseModel"""
