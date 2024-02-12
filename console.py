@@ -108,17 +108,17 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string rep of all instances
         """
-        objects = storage.all()
-        if arg:
-            try:
-                objects = {
-                    k: v for k, v in objects.items()
-                    if v.__class__.__name__ == arg
-                }
-            except AttributeError:
-                print("**class doesn't exist **")
-                return
-            print([str(v) for v in objects.values()])
+        args = arg.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        class_name = args[0]
+        if class_name not in self.classes:
+            print("** class doesn't exist **")
+            return
+
+        objects = getattr(eval(class_name), 'all')()
+        print(objects)
 
     def do_update(self, arg):
         """

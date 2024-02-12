@@ -3,7 +3,7 @@
 import sys
 sys.path.append('/AirBnB_clone')
 import models
-from uuid import uuid4
+import uuid
 from datetime import datetime
 
 
@@ -14,6 +14,8 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initializes a new instance of the BaseModel class"""
+        from models import storage
+
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -40,6 +42,7 @@ class BaseModel:
 
     def save(self):
         """Update public instance attribute updated_at with current datetime"""
+        from models import storage
         self.updated_at = datetime.now()
         storage.save()
 

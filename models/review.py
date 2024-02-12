@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 """Defines the Review user class"""
-
+import sys
+sys.path.append('/AirBnB_clone')
 from models.base_model import BaseModel
 
 
